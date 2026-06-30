@@ -1,0 +1,192 @@
+/* ============================================
+   Styles/input.css — Floating Label Input
+   ============================================ */
+
+.input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Wrap ── */
+.input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Field ── */
+.input-field {
+  width: 100%;
+  padding: 18px 16px 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+  transition:
+    border-color var(--t-base) ease,
+    background var(--t-base) ease,
+    box-shadow var(--t-base) ease;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input-field--icon {
+  padding-left: 46px;
+}
+
+.input-field::placeholder {
+  color: transparent;
+}
+
+/* ── Floating Label ── */
+.input-label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-muted);
+  pointer-events: none;
+  transition:
+    top var(--t-base) var(--ease-out),
+    transform var(--t-base) var(--ease-out),
+    font-size var(--t-base) var(--ease-out),
+    color var(--t-base) ease;
+  transform-origin: left top;
+}
+
+.input-label--icon {
+  left: 46px;
+}
+
+/* Float label when focused or filled */
+.input-field:focus ~ .input-label,
+.input-field:not(:placeholder-shown) ~ .input-label,
+.input-group--filled .input-label {
+  top: 10px;
+  transform: translateY(0) scale(0.78);
+  color: var(--color-violet);
+  font-weight: 500;
+}
+
+/* ── Left Icon ── */
+.input-icon--left {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  transition: color var(--t-base) ease;
+  z-index: 1;
+}
+
+.input-icon--left svg {
+  width: 18px;
+  height: 18px;
+}
+
+.input-field:focus ~ .input-icon--left,
+.input-wrap:focus-within .input-icon--left {
+  color: var(--color-violet);
+}
+
+/* ── Password Eye Toggle ── */
+.input-eye {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  transition: color var(--t-base) ease;
+  z-index: 1;
+}
+
+.input-eye svg {
+  width: 18px;
+  height: 18px;
+}
+
+.input-eye:hover {
+  color: var(--text-primary);
+}
+
+/* ── Focus Glow Ring ── */
+.input-focus-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: calc(var(--radius-md) + 1px);
+  border: 1px solid transparent;
+  pointer-events: none;
+  transition:
+    border-color var(--t-base) ease,
+    box-shadow var(--t-base) ease;
+}
+
+.input-wrap:focus-within .input-focus-ring {
+  border-color: var(--color-violet);
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.15),
+    0 0 20px rgba(139, 92, 246, 0.1);
+}
+
+/* ── Hover ── */
+.input-field:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* ── Focus ── */
+.input-field:focus {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--color-violet);
+}
+
+/* ── Error State ── */
+.input-group--error .input-field {
+  border-color: rgba(239, 68, 68, 0.6);
+}
+
+.input-group--error .input-wrap:focus-within .input-focus-ring {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.input-group--error .input-field:focus ~ .input-label,
+.input-group--error .input-field:not(:placeholder-shown) ~ .input-label {
+  color: #ef4444;
+}
+
+.input-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #f87171;
+  padding-left: 4px;
+}
+
+.input-error__icon {
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+/* ── Required Asterisk ── */
+.input-required {
+  color: var(--color-pink);
+}

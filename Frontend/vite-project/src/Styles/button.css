@@ -1,0 +1,175 @@
+/* ============================================
+   Styles/button.css — Premium Button Styles
+   ============================================ */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform var(--t-base) var(--ease-spring),
+    box-shadow var(--t-base) var(--ease-out),
+    opacity var(--t-fast) ease,
+    background var(--t-base) ease;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Sizes ── */
+.btn--sm {
+  padding: 8px 18px;
+  font-size: 13px;
+  gap: 6px;
+}
+
+.btn--md {
+  padding: 12px 26px;
+  font-size: 14px;
+  gap: 8px;
+}
+
+.btn--lg {
+  padding: 15px 34px;
+  font-size: 16px;
+  gap: 10px;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/* ── Inner Layout ── */
+.btn__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+  position: relative;
+  z-index: 1;
+}
+
+.btn__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btn__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Shimmer overlay ── */
+.btn__shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+
+.btn:not(:disabled):hover .btn__shimmer {
+  animation: shimmer 0.55s ease forwards;
+}
+
+/* ── Primary ── */
+.btn--primary {
+  background: var(--grad-btn);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(139, 92, 246, 0.25);
+}
+
+.btn--primary:not(:disabled):hover {
+  background: var(--grad-btn-hover);
+  box-shadow: var(--glow-btn);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn--primary:not(:disabled):active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+}
+
+/* ── Secondary ── */
+.btn--secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(10px);
+}
+
+.btn--secondary:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.12);
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.btn--secondary:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* ── Ghost ── */
+.btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+}
+
+.btn--ghost:not(:disabled):hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-border);
+}
+
+/* ── Danger ── */
+.btn--danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(239, 68, 68, 0.25);
+}
+
+.btn--danger:not(:disabled):hover {
+  box-shadow: 0 0 24px rgba(239, 68, 68, 0.4);
+  transform: translateY(-2px);
+}
+
+/* ── Disabled ── */
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Loading Spinner ── */
+.btn__spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin-slow 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── Focus Ring ── */
+.btn:focus-visible {
+  outline: 2px solid var(--color-violet);
+  outline-offset: 3px;
+}
