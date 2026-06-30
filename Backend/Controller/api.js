@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const saltRound = 10;
-const secretKey = "acharya";
+const secretKey = process.env.JWT_SECRET;
 
 const filePath = path.join(__dirname, "../Data/users.json");
 
@@ -39,7 +39,7 @@ const register = (req, res) => {
     secretKey,
     {
       expiresIn: "365d",
-    }
+    },
   );
 
   res.send({
@@ -66,10 +66,7 @@ const login = async (req, res) => {
     });
   }
 
-  const checkPassword = await bcrypt.compare(
-    data.password,
-    account.password
-  );
+  const checkPassword = await bcrypt.compare(data.password, account.password);
 
   if (!checkPassword) {
     return res.send({
@@ -84,7 +81,7 @@ const login = async (req, res) => {
     secretKey,
     {
       expiresIn: "365d",
-    }
+    },
   );
 
   res.send({
