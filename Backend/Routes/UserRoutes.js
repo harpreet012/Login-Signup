@@ -1,44 +1,27 @@
-const jwt = require("jsonwebtoken");
+const route = require("express").Router();
 
-const secretKey = "acharya";
+const { register, login, home, dashboard } = require("../Controller/Api");
 
-const auth = (req, res, next) => {
-  try {
-    // Authorization Header
-    const authHeader = req.headers.authorization;
+const auth = require("../Middleware/auth");
 
-    // Check if Authorization header exists
-    if (!authHeader) {
-      return res.status(401).json({
-        success: false,
-        message: "Authorization token is required.",
-      });
-    }
+// ========================
+// Public Routes
+// ========================
 
-    // Check Bearer Token format
-    if (!authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid Authorization format. Use: Bearer <token>",
-      });
-    }
+// Register User
+route.post("/register", register);
 
-    // Extract Token
-    const token = authHeader.split(" ")[1];
+// Login User
+route.post("/login", login);
 
-    // Verify Token
-    const decoded = jwt.verify(token, secretKey);
+// Home Page
+route.get("/home", home);
 
-    // Store decoded user details
-    req.user = decoded;
+// ========================
+// Protected Routes
+// ========================
 
-    next();
-  } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: "Invalid or Expired Token.",
-    });
-  }
-};
+// Dashboard (JWT Required)
+route.get("/dashboard", auth, dashboard);
 
-module.exports = auth;
+module.exports = route;
