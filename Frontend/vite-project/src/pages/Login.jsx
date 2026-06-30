@@ -33,11 +33,26 @@ export default function Login() {
       const data = await res.json();
 
       if (!data.token) {
-        setError(data.msg || "Couldn't log in. Check your details and try again.");
+        setError(
+          data.msg || "Couldn't log in. Check your details and try again.",
+        );
         return;
       }
 
       localStorage.setItem("token", data.token);
+
+      const now = new Date();
+      const sessions = JSON.parse(localStorage.getItem("sessions") || "[]");
+      sessions.unshift({
+        desc: "Signed in",
+        time: now.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        date: now.toLocaleDateString(),
+      });
+      localStorage.setItem("sessions", JSON.stringify(sessions.slice(0, 20)));
+
       navigate("/dashboard");
     } catch (err) {
       setError("Couldn't reach the server. Make sure the backend is running.");
@@ -116,12 +131,26 @@ export default function Login() {
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C5 20 1 12 1 12a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
                     <line x1="1" y1="1" x2="23" y2="23" />
                   </svg>
                 ) : (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                     <circle cx="12" cy="12" r="3" />
                   </svg>
