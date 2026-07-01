@@ -34,7 +34,8 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8888/pages/register", {
+      const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8888/pages";
+      const res = await fetch(`${apiBase}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

@@ -25,7 +25,8 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8888/pages/login", {
+      const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8888/pages";
+      const res = await fetch(`${apiBase}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
